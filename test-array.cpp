@@ -3,38 +3,45 @@
 #include "array.h"
 #include "object.h"
 
-void check(int num, bool thing){
-    if(thing) printf("\033[0;32m[test %d succeeded]\033[0m\n", num);
-    else printf("\033[0;31m[test %d failed]\033[0m\n", num);
+void check(const char* name, bool thing){
+    if(thing) printf("\033[0;32m[succeeded: %s]\033[0m\n", name);
+    else printf("\033[0;31m[failed: %s]\033[0m\n", name);
 }
 
 //tests append, append_all, insert, insert_all 
 //indirectly tests get, size
 void testAdd (void) {
+    String* hi = new String("hi");
+    String* bar = new String("bar");
+    String* baz = new String("baz");
+    String* bat = new String("bat");
+    String* end = new String("end");
+    String* sad = new String("sad");
+    
     Array* arr = new Array();
     arr->append(new String("hi"));
-    check(5011, arr->get(0)->equals(new String("hi")));
+    check(5011, arr->get(0)->equals(hi));
     arr->append(NULL);
-    check(5021, arr->get(0)->equals(new String("hi")));
+    check(5021, arr->get(0)->equals(hi));
     check(5022, arr->get(1) == NULL);
     
     
     Array* arr2 = new Array();
     arr2->append(new String("bar"));
     arr2->append(new String("sad"));
-    check(5053, arr2->size() == 2);
+    check("append size", arr2->size() == 2);
     arr2->append_all(arr);
-    check(5031, arr2->get(0)->equals(new String("bar")));
-    check(5032, arr2->get(1)->equals(new String("sad")));
-    check(5033, arr2->get(2)->equals(new String("hi")));
-    check(5034, arr2->get(3) == NULL);
-    check(5051, arr2->size() == 4);
+    check("appendall 0", arr2->get(0)->equals(bar));
+    check("appendall 1", arr2->get(1)->equals(sad));
+    check("appendall 2", arr2->get(2)->equals(hi));
+    check("appendall 3", arr2->get(3) == NULL);
+    check("appendall size", arr2->size() == 4);
     arr2->append_all(new Array());
-    check(5041, arr2->get(0)->equals(new String("bar")));
-    check(5042, arr2->get(1)->equals(new String("sad")));
-    check(5043, arr2->get(2)->equals(new String("hi")));
-    check(5044, arr2->get(3) == NULL);
-    check(5052, arr2->size() == 4);
+    check("appendall blank 0", arr2->get(0)->equals(bar));
+    check("appendall blank 1", arr2->get(1)->equals(sad));
+    check("appendall blank 2", arr2->get(2)->equals(hi));
+    check("appendall blank 3", arr2->get(3) == NULL);
+    check("appendall blank size", arr2->size() == 4);
     
     
     Array* dup = new Array();
@@ -44,117 +51,160 @@ void testAdd (void) {
     dup->append(NULL);
     
     arr2->insert_all(dup, 2);
-    check(5061, arr2->get(0)->equals(new String("bar")));
-    check(5062, arr2->get(1)->equals(new String("sad")));
-    check(5063, arr2->get(2)->equals(new String("bar")));
-    check(5064, arr2->get(3)->equals(new String("sad")));
-    check(5065, arr2->get(4)->equals(new String("hi")));
-    check(5066, arr2->get(5) == NULL);
-    check(5067, arr2->get(6)->equals(new String("hi")));
-    check(5068, arr2->get(7) == NULL);
-    check(5054, arr2->size() == 8);
+    check("insertall 0", arr2->get(0)->equals(bar));
+    check("insertall 1", arr2->get(1)->equals(sad));
+    check("insertall 2", arr2->get(2)->equals(bar));
+    check("insertall 3", arr2->get(3)->equals(sad));
+    check("insertall 4", arr2->get(4)->equals(hi);
+    check("insertall 5", arr2->get(5) == NULL);
+    check("insertall 6", arr2->get(6)->equals(hi);
+    check("insertall 7", arr2->get(7) == NULL);
+    check("insertall size", arr2->size() == 8);
     arr2->insert_all(new Array(), 5);
-    check(5081, arr2->get(0)->equals(new String("bar")));
-    check(5082, arr2->get(1)->equals(new String("sad")));
-    check(5083, arr2->get(2)->equals(new String("bar")));
-    check(5084, arr2->get(3)->equals(new String("sad")));
-    check(5085, arr2->get(4)->equals(new String("hi")));
-    check(5086, arr2->get(5) == NULL);
-    check(5087, arr2->get(6)->equals(new String("hi")));
-    check(5088, arr2->get(7) == NULL);
-    check(5056, arr2->size() == 8);
+    check("insertall blank 0", arr2->get(0)->equals(bar));
+    check("insertall blank 1", arr2->get(1)->equals(sad));
+    check("insertall blank 2", arr2->get(2)->equals(bar));
+    check("insertall blank 3", arr2->get(3)->equals(sad));
+    check("insertall blank 4", arr2->get(4)->equals(hi));
+    check("insertall blank 5", arr2->get(5) == NULL);
+    check("insertall blank 6", arr2->get(6)->equals(hi));
+    check("insertall blank 7", arr2->get(7) == NULL);
+    check("insertall blank size", arr2->size() == 8);
     
+    Array* arr3 = new Array();
+    arr3->append(new String("hi"));
+    arr3->append(NULL);
     
-    arr = new Array();
-    arr->append(new String("hi"));
-    arr->append(NULL);
+    arr3->insert(new String("bar"), 0);
+    arr3->insert(new String("baz"), 3);
+    arr3->insert(new String("bat"), 0);
+    arr3->insert(new String("end"), 10000);
+    check("insert 0", arr3->get(0)->equals(hi));
+    check("insert 1", arr3->get(1) == NULL);
+    check("insert 2", arr3->get(2)->equals(bar));
+    check("insert 3", arr3->get(3)->equals(baz));
+    check("insert 4", arr3->get(4)->equals(bat));
+    check("insert 5", arr3->get(5)->equals(end));
+    check("insert size", arr3->size() == 6);
     
-    arr->insert(new String("bar"), 0);
-    arr->insert(new String("baz"), 3);
-    arr->insert(new String("bat"), 0);
-    arr->insert(new String("end"), 10000);
-    check(5071, arr->get(0)->equals(new String("hi")));
-    check(5072, arr->get(1) == NULL);
-    check(5073, arr->get(2)->equals(new String("bar")));
-    check(5074, arr->get(3)->equals(new String("baz")));
-    check(5075, arr->get(4)->equals(new String("bat")));
-    check(5076, arr->get(5)->equals(new String("end")));
-    check(5055, arr->size() == 6);
+    //arr3 freed by adding to arr2
+    //dup freed by adding to arr2
+    delete arr2; 
+    delete arr3;
+    delete hi;
+    delete bar;
+    delete baz;
+    delete bat;
+    delete end;
+    delete sad;
 }
 
 //tests set, remove, removeRange, clear
 // indirectly tests append, get, size
 void testRemove(void) {
     
+    String* hi = new String("hi");
+    String* foo = new String("foo");
+    String* bar = new String("bar");
+    
+    String* free1;
+    String* free2;
+    String* free3;
+    String* free4;
+    
     Array* arr = new Array();
     arr->append(new String("hi"));
-    check(4011, arr->set(new String("foo"))->equals(new String("hi")), 0);
-    check(4012, arr->get(0)->equals(new String("foo")));
+    check("set replace return", (free1 = arr->set(new String("foo"), 0))->equals(hi));
+    check("set replace 0", arr->get(0)->equals(foo));
     arr->append(NULL);
-    check(4013, arr->set(new String("hi")) == NULL, 1);
-    check(4014, arr->get(0)->equals(new String("foo")));
-    check(4015, arr->get(1)->equals(new String("hi")));
+    check("set at size return", arr->set(new String("hi")) == NULL, 1);
+    check("set at size 0", arr->get(0)->equals(foo));
+    check("set at size 1", arr->get(1)->equals(hi));
     
-    check(4021, arr->remove(0)->equals(new String("foo")));
-    check(4022, arr->remove(0)->equals(new String("hi")));
-    check(4023, arr->remove(0) == NULL);
-    check(4024, arr->size() == 0);
+    check("remove return", (free2 = arr->remove(0))->equals(foo));
+    check("remove shrink", (free3 = arr->remove(0))->equals(hi));
+    check("remove from empty", arr->remove(0) == NULL);
+    check("size after remove", arr->size() == 0);
+    arr->append(NULL);
+    arr->append(new String("hi"));
+    check("remove index 1", (free4 = arr->remove(1))->equals(hi));
+    check("size after remove 1", arr->size() == 1);
+    check("remove null", arr->remove(0) == NULL);
     
     arr->append(new String("hi"));
     arr->append(new String("hi"));
     arr->append(new String("hi"));
-    check(4031, arr->size() == 3);
+    check("size before clear", arr->size() == 3);
     arr->clear();
-    check(4032, arr->size() == 0);
+    check("size after clear", arr->size() == 0);
     arr->append(new String("hi"));
     arr->append(new String("foo"));
     arr->append(new String("bar"));
-    check(4033, arr->size() == 3);
-    arr->removeRange(0, 2);
-    check(4034, arr->get(0)->equals(new String("bar")));
-    check(4035, arr->size() == 1);
+    arr->append(new String("hi"));
+    check("size before removerange", arr->size() == 4);
+    arr->removeRange(1, 3);
+    check("removerange start", arr->get(0)->equals(hi));
+    check("removerange shrink", arr->get(1)->equals(hi));
+    check("size after removerange", arr->size() == 2);
+    
+    delete arr;
+    delete hi;
+    delete foo;
+    delete bar;
+    delete free1;
+    delete free2;
+    delete free3;
+    delete free4;
 }
 
 //tests get, contains, indexOf, size, equals
 //indirectly tests remove, append
 void testQueries(void) {
     
+    String* hi = new String("hi");
+    String* foo = new String("foo");
+    
     Array* arr = new Array();
     Array* arr2 = new Array();
-    check(3011, arr->equals(arr2));
+    check("empty arrays equal", arr->equals(arr2));
     arr->append(new String("hi"));
     arr->clear();
-    check(3012, arr->equals(arr2);
+    check("cleared arrays equal", arr->equals(arr2);
     arr->append(new String("hi"));
     arr2->append(new String("hi"));
-    check(3013, arr2->equals(arr);
-    check(3014, arr->equals(arr2);
+    check("non-empty arrays equal", arr2->equals(arr);
+    check("symmetric equality", arr->equals(arr2);
     
     arr->append(NULL);
-    check(3040, arr->size() == 2);
-    check(3021, arr->get(1) == NULL);
-    check(3022, arr->get(0)->equals(new String("hi")));
+    check("size after append", arr->size() == 2);
+    check("get null", arr->get(1) == NULL);
+    check("get non-null", arr->get(0)->equals(hi));
     arr->append(new String("foo"));
-    check(3021, arr->get(1) == NULL);
-    check(3023, arr->get(2)->equals(new String("foo")));
+    check("get after append", arr->get(1) == NULL);
+    check("get after append 2", arr->get(2)->equals(foo));
     
-    check(3031, arr->contains(new String("foo")));
-    check(3032, arr->index_of(new String("foo")) == 1);
-    check(3033, arr->contains(NULL));
-    check(3034, arr->index_of(NULL) == 1);
+    check("contains non-null", arr->contains(foo));
+    check("indexof non-null", arr->index_of(foo) == 1);
+    check("contains null", arr->contains(NULL));
+    check("indexof null", arr->index_of(NULL) == 1);
     arr->remove(1);
-    check(3035, !arr->contains(NULL));
-    check(3036, arr->index_of(NULL) > 2);
+    check("!contains null", !arr->contains(NULL));
+    check("!indexof null", arr->index_of(NULL) > 2);
     arr->remove(1);
-    check(3037, !arr->contains(new String("foo")));
-    check(3038, arr->index_of(new String("foo")) > 1);
-    check(3039, arr->size() == 1);
+    check("!contains non-null", !arr->contains(foo));
+    check("!indexof non-null", arr->index_of(foo) > 1);
+    check("size (for indexof validation)", arr->size() == 1);
+    
+    delete arr;
+    delete arr2;
+    delete hi;
+    delete foo;
 }
 
-//memory leaks galore, do not call multiple times within a process
+// should free all memory (if you want to check if you are freeing properly)
 int main(int argc, char** argv) {
-    testAdd();
     testQueries();
+    testAdd();
     testRemove();
     return 0;
 }
