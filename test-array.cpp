@@ -55,9 +55,9 @@ void testAdd (void) {
     check("insertall 1", arr2->get(1)->equals(sad));
     check("insertall 2", arr2->get(2)->equals(bar));
     check("insertall 3", arr2->get(3)->equals(sad));
-    check("insertall 4", arr2->get(4)->equals(hi);
+    check("insertall 4", arr2->get(4)->equals(hi));
     check("insertall 5", arr2->get(5) == NULL);
-    check("insertall 6", arr2->get(6)->equals(hi);
+    check("insertall 6", arr2->get(6)->equals(hi));
     check("insertall 7", arr2->get(7) == NULL);
     check("insertall size", arr2->size() == 8);
     arr2->insert_all(new Array(), 5);
@@ -107,10 +107,10 @@ void testRemove(void) {
     String* foo = new String("foo");
     String* bar = new String("bar");
     
-    String* free1;
-    String* free2;
-    String* free3;
-    String* free4;
+    Object* free1;
+    Object* free2;
+    Object* free3;
+    Object* free4;
     
     Array* arr = new Array();
     arr->append(new String("hi"));
@@ -169,11 +169,11 @@ void testQueries(void) {
     check("empty arrays equal", arr->equals(arr2));
     arr->append(new String("hi"));
     arr->clear();
-    check("cleared arrays equal", arr->equals(arr2);
+    check("cleared arrays equal", arr->equals(arr2));
     arr->append(new String("hi"));
     arr2->append(new String("hi"));
-    check("non-empty arrays equal", arr2->equals(arr);
-    check("symmetric equality", arr->equals(arr2);
+    check("non-empty arrays equal", arr2->equals(arr));
+    check("symmetric equality", arr->equals(arr2));
     
     arr->append(NULL);
     check("size after append", arr->size() == 2);
