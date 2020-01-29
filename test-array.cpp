@@ -142,7 +142,7 @@ void testRemove(void) {
     arr->append(new String("bar"));
     arr->append(new String("hi"));
     check("size before removerange", arr->size() == 4);
-    arr->removeRange(1, 3);
+    arr->remove_range(1, 3);
     check("removerange start", arr->get(0)->equals(hi));
     check("removerange shrink", arr->get(1)->equals(hi));
     check("size after removerange", arr->size() == 2);
