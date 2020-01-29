@@ -20,10 +20,10 @@ void testAdd (void) {
     
     Array* arr = new Array();
     arr->append(new String("hi"));
-    check(5011, arr->get(0)->equals(hi));
+    check("append 0", arr->get(0)->equals(hi));
     arr->append(NULL);
-    check(5021, arr->get(0)->equals(hi));
-    check(5022, arr->get(1) == NULL);
+    check("append unchanged", arr->get(0)->equals(hi));
+    check("append 1", arr->get(1) == NULL);
     
     
     Array* arr2 = new Array();
