@@ -16,4 +16,7 @@ class String : public Object {
     // returns <0 if this is less than the other,
     //    =0 if they are equal, and >0 if this is greater.
     int compare_to(String* other);
+    
+    // Same as compare_to
+    int cmp(const String* other);
 };
