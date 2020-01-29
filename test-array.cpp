@@ -117,7 +117,7 @@ void testRemove(void) {
     check("set replace return", (free1 = arr->set(new String("foo"), 0))->equals(hi));
     check("set replace 0", arr->get(0)->equals(foo));
     arr->append(NULL);
-    check("set at size return", arr->set(new String("hi")) == NULL, 1);
+    check("set at size return", arr->set(new String("hi"), 1) == NULL);
     check("set at size 0", arr->get(0)->equals(foo));
     check("set at size 1", arr->get(1)->equals(hi));
     
@@ -184,7 +184,7 @@ void testQueries(void) {
     check("get after append 2", arr->get(2)->equals(foo));
     
     check("contains non-null", arr->contains(foo));
-    check("indexof non-null", arr->index_of(foo) == 1);
+    check("indexof non-null", arr->index_of(foo) == 2);
     check("contains null", arr->contains(NULL));
     check("indexof null", arr->index_of(NULL) == 1);
     arr->remove(1);
