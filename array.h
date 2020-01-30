@@ -1,8 +1,15 @@
 #pragma once
 
 #include "object.h"
+#include <stdbool.h>
 
-class Array : public Object {
+// abstract class for convinience use
+class GenericArray : public Object {
+    
+}
+
+// Represents an array (Java: List) of Objects
+class Array : public GenericArray {
     public:
     
     // Appends val to the end of the array.
@@ -70,5 +77,125 @@ class Array : public Object {
     void clear();
     
     // Returns the number of elements in this array. 
+    size_t size();
+};
+
+// Represents an array (Java: List) of bools
+class BoolArray : public GenericArray {
+    
+    // Appends val onto the end of the array
+    void append(bool val);
+    
+    // Inserts val at index, so that array.get(index) will return val.
+    // Pushes all elements after index down by 1.
+    // If index is >= size(), is equivalent to calling append(val).
+    void insert(bool val, size_t index);
+    
+    // Sets the element at index to val. Returns the value previously at index.
+    // If index == size(), appends to the end of the array and returns undefined.
+    // If index is > size(), does nothing and returns undefined.
+    bool set(bool val, size_t index);
+    
+    // Gets the element at index.
+    // If index is >= size(), does nothing and returns undefined.
+    bool get(size_t index);
+    
+    // Removes the element at index. Returns the previous element.
+    // Pulls all elements after index up by 1.
+    // If index is >= size(), does nothing and returns undefined.
+    bool remove(size_t index);
+    
+    // Returns if the array contains val.
+    bool contains(bool val);
+    
+    // Returns the first index of the val.
+    // If val does not exist in the array, 
+    //    returns a value greater than size().
+    size_t index_of(bool val);
+    
+    // Removes all elements.
+    void clear();
+    
+    // Returns the number of elements.
+    size_t size();
+};
+
+// Represents an array (Java: List) of ints
+class IntArray : public GenericArray {
+    
+    // Appends val onto the end of the array
+    void append(int val);
+    
+    // Inserts val at index, so that array.get(index) will return val.
+    // Pushes all elements after index down by 1.
+    // If index is >= size(), is equivalent to calling append(val).
+    void insert(int val, size_t index);
+    
+    // Sets the element at index to val. Returns the value previously at index.
+    // If index == size(), appends to the end of the array and returns undefined.
+    // If index is > size(), does nothing and returns undefined.
+    int set(int val, size_t index);
+    
+    // Gets the element at index.
+    // If index is >= size(), does nothing and returns undefined.
+    int get(size_t index);
+    
+    // Removes the element at index. Returns the previous element.
+    // Pulls all elements after index up by 1.
+    // If index is >= size(), does nothing and returns undefined.
+    int remove(size_t index);
+    
+    // Returns if the array contains val.
+    bool contains(int val);
+    
+    // Returns the first index of the val.
+    // If val does not exist in the array, 
+    //    returns a value greater than size().
+    size_t index_of(int val);
+    
+    // Removes all elements.
+    void clear();
+    
+    // Returns the number of elements.
+    size_t size();
+};
+
+// Represents an array (Java: List) of floats
+class FloatArray : public GenericArray {
+    
+    // Appends val onto the end of the array
+    void append(float val);
+    
+    // Inserts val at index, so that array.get(index) will return val.
+    // Pushes all elements after index down by 1.
+    // If index is >= size(), is equivalent to calling append(val).
+    void insert(float val, size_t index);
+    
+    // Sets the element at index to val. Returns the value previously at index.
+    // If index == size(), appends to the end of the array and returns undefined.
+    // If index is > size(), does nothing and returns undefined.
+    float set(float val, size_t index);
+    
+    // Gets the element at index.
+    // If index is >= size(), does nothing and returns undefined.
+    float get(size_t index);
+    
+    // Removes the element at index. Returns the previous element.
+    // Pulls all elements after index up by 1.
+    // If index is >= size(), does nothing and returns undefined.
+    float remove(size_t index);
+    
+    // Returns if the array contains val.
+    bool contains(float val);
+    
+    // Returns the first index of the val.
+    // If val does not exist in the array, 
+    //    returns a value greater than size().
+    size_t index_of(float val);
+    
+    // Removes all elements.
+    void clear();
+    
+    // Returns the number of elements.
     size_t size();
 };
