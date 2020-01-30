@@ -79,11 +79,11 @@ void testAdd (void) {
     arr3->insert(new String("baz"), 3);
     arr3->insert(new String("bat"), 0);
     arr3->insert(new String("end"), 10000);
-    check("insert 0", arr3->get(0)->equals(hi));
-    check("insert 1", arr3->get(1) == NULL);
-    check("insert 2", arr3->get(2)->equals(bar));
-    check("insert 3", arr3->get(3)->equals(baz));
-    check("insert 4", arr3->get(4)->equals(bat));
+    check("insert 0", arr3->get(0)->equals(bat));
+    check("insert 1", arr3->get(1)->equals(bar));
+    check("insert 2", arr3->get(2)->equals(hi));
+    check("insert 3", arr3->get(3) == NULL);
+    check("insert 4", arr3->get(4)->equals(baz));
     check("insert 5", arr3->get(5)->equals(end));
     check("insert size", arr3->size() == 6);
     
