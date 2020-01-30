@@ -9,4 +9,10 @@ class Object {
     
     // Hashes this object. Must be the same if equal.
     virtual size_t hash();
+    
+    /** Print to stdout. */  
+    virtual void print();
+    
+    /** Return a newly allocated string describin the object */
+    virtual char* to_string();
 };

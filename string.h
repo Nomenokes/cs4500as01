@@ -19,4 +19,10 @@ class String : public Object {
     
     // Same as compare_to
     int cmp(const String* other);
+    
+    // Same as compare_to
+    int compare(String* other);
+    
+    // Returns a new object
+    String* concat(String* other);
 };
