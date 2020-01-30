@@ -201,10 +201,130 @@ void testQueries(void) {
     delete foo;
 }
 
+void testPrimitives(void) {
+    BoolArray* ba = new BoolArray();
+    IntArray* ia = new IntArray();
+    FloatArray* fa = new FloatArray();
+    
+    
+    check("empty BA size 0", ba->size() == 0);
+    check("empty IA size 0", ia->size() == 0);
+    check("empty FA size 0", fa->size() == 0);
+    ba->append(false);
+    ba->append(false);
+    ba->append(true);
+    check("append BA changes size", ba->size() == 3);
+    check("BA get 0", ba->get(0) == false);
+    check("BA get 2", ba->get(2) == false);
+    ba->get(3);//check OB
+    ia->append(0);
+    ia->append(2);
+    ia->append(3);
+    check("append IA changes size", ia->size() == 3);
+    check("IA get 0", ia->get(0) == 0);
+    check("IA get 2", ia->get(2) == 3);
+    ia->get(3);//check OB
+    fa->append(0.0);
+    fa->append(2.2);
+    fa->append(3.3);
+    check("append FA changes size", fa->size() == 3.3);
+    check("FA get 0", fa->get(0) == 0.0);
+    check("FA get 2", fa->get(2) == 3.3);
+    fa->get(3);//check OB
+    
+    ba->insert(false, 1000);
+    ba->insert(true, 1);
+    check("BA insert 0", ba->get(0) == false);
+    check("BA insert 1", ba->get(1) == true);
+    check("BA insert 2", ba->get(2) == false);
+    check("BA insert 3", ba->get(3) == true);
+    check("BA insert 4", ba->get(4) == false);
+    ia->insert(4, 1000);
+    ia->insert(1, 1);
+    check("IA insert 0", ia->get(0) == 0);
+    check("IA insert 1", ia->get(1) == 1);
+    check("IA insert 2", ia->get(2) == 2);
+    check("IA insert 3", ia->get(3) == 3);
+    check("IA insert 4", ia->get(4) == 4);
+    fa->insert(4.4, 1000);
+    fa->insert(1.1, 1);
+    check("FA insert 0", fa->get(0) == 0.0);
+    check("FA insert 1", fa->get(1) == 1.1);
+    check("FA insert 2", fa->get(2) == 2.2);
+    check("FA insert 3", fa->get(3) == 3.3);
+    check("FA insert 4", fa->get(4) == 4.4);
+    
+    check("BA size after insert/append", ba->size() == 5);
+    check("IA size after insert/append", ia->size() == 5);
+    check("FA size after insert/append", fa->size() == 5);
+    
+    check("BA set RV", ba->set(false, 1) == true);
+    ba->set(true, 1000);
+    check("BA set 0", ba->get(0) == false);
+    check("BA set 1", ba->get(1) == false);
+    check("BA set 2", ba->get(2) == false);
+    check("BA set 3", ba->get(3) == true);
+    check("BA set 4", ba->get(4) == false);
+    check("IA set RV", ia->set(5, 1) == 1);
+    ia->set(6, 1000);
+    check("IA set 0", ia->get(0) == 0);
+    check("IA set 1", ia->get(1) == 5);
+    check("IA set 2", ia->get(2) == 2);
+    check("IA set 3", ia->get(3) == 3);
+    check("IA set 4", ia->get(4) == 4);
+    check("FA set RV", ia->set(5.5, 1) == 1);
+    fa->set(6, 1000);
+    check("FA set 0", fa->get(0) == 0.0);
+    check("FA set 1", fa->get(1) == 5.5);
+    check("FA set 2", fa->get(2) == 2.2);
+    check("FA set 3", fa->get(3) == 3.3);
+    check("FA set 4", fa->get(4) == 4.4);
+    
+    check("BA size after set", ba->size() == 5);
+    check("IA size after set", ia->size() == 5);
+    check("FA size after set", fa->size() == 5);
+    
+    check("BA contains", ba->contains(true));
+    check("BA indexof", ba->index_of(true) == 3);
+    check("BA remove RV", ba->remove(3) == true);
+    ba->remove(500);//out of range
+    check("BA !contains", !ba->contains(true));
+    check("BA !indexof", ba->index_of(true) > 4);
+    check("IA contains", ia->contains(5));
+    check("IA indexof", ia->index_of(5) == 3);
+    check("IA remove RV", ia->remove(3) == 5);
+    ba->remove(500);//out of range
+    check("IA !contains", !ia->contains(5));
+    check("IA !indexof", ia->index_of(5) > 4);
+    check("FA contains", fa->contains(5.5));
+    check("FA indexof", fa->index_of(5.5) == 3);
+    check("FA remove RV", fa->remove(3) == 5.5);
+    ba->remove(500);//out of range
+    check("FA !contains", !fa->contains(5.5));
+    check("FA !indexof", fa->index_of(5.5) > 4);
+    
+    check("BA size after remove", ba->size() == 4);
+    check("IA size after remove", ia->size() == 4);
+    check("FA size after remove", fa->size() == 4);
+    
+    ba->clear();
+    ia->clear();
+    fa->clear();
+    check("BA size after clear", ba->size() == 0);
+    check("IA size after clear", ia->size() == 0);
+    check("FA size after clear", fa->size() == 0);
+    
+    
+    delete ba;
+    delete ia;
+    delete fa;
+}
+
 // should free all memory (if you want to check if you are freeing properly)
 int main(int argc, char** argv) {
     testQueries();
     testAdd();
     testRemove();
+    testPrimitives();
     return 0;
 }
