@@ -272,7 +272,7 @@ void testPrimitives(void) {
     check("IA set 2", ia->get(2) == 2);
     check("IA set 3", ia->get(3) == 3);
     check("IA set 4", ia->get(4) == 4);
-    check("FA set RV", fa->set(5.5, 1) == 1.1);
+    check("FA set RV", fa->set(5.5f, 1) == 1.1f);
     fa->set(6, 1000);
     check("FA set 0", fa->get(0) == 0.0f);
     check("FA set 1", fa->get(1) == 5.5f);
