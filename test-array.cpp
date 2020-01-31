@@ -215,7 +215,7 @@ void testPrimitives(void) {
     ba->append(true);
     check("append BA changes size", ba->size() == 3);
     check("BA get 0", ba->get(0) == false);
-    check("BA get 2", ba->get(2) == false);
+    check("BA get 2", ba->get(2) == true);
     ba->get(3);//check OB
     ia->append(0);
     ia->append(2);
@@ -224,12 +224,12 @@ void testPrimitives(void) {
     check("IA get 0", ia->get(0) == 0);
     check("IA get 2", ia->get(2) == 3);
     ia->get(3);//check OB
-    fa->append(0.0);
-    fa->append(2.2);
-    fa->append(3.3);
-    check("append FA changes size", fa->size() == 3.3);
-    check("FA get 0", fa->get(0) == 0.0);
-    check("FA get 2", fa->get(2) == 3.3);
+    fa->append(0.0f);
+    fa->append(2.2f);
+    fa->append(3.3f);
+    check("append FA changes size", fa->size() == 3);
+    check("FA get 0", fa->get(0) == 0.0f);
+    check("FA get 2", fa->get(2) == 3.3f);
     fa->get(3);//check OB
     
     ba->insert(false, 1000);
@@ -248,11 +248,11 @@ void testPrimitives(void) {
     check("IA insert 4", ia->get(4) == 4);
     fa->insert(4.4, 1000);
     fa->insert(1.1, 1);
-    check("FA insert 0", fa->get(0) == 0.0);
-    check("FA insert 1", fa->get(1) == 1.1);
-    check("FA insert 2", fa->get(2) == 2.2);
-    check("FA insert 3", fa->get(3) == 3.3);
-    check("FA insert 4", fa->get(4) == 4.4);
+    check("FA insert 0", fa->get(0) == 0.0f);
+    check("FA insert 1", fa->get(1) == 1.1f);
+    check("FA insert 2", fa->get(2) == 2.2f);
+    check("FA insert 3", fa->get(3) == 3.3f);
+    check("FA insert 4", fa->get(4) == 4.4f);
     
     check("BA size after insert/append", ba->size() == 5);
     check("IA size after insert/append", ia->size() == 5);
@@ -274,11 +274,11 @@ void testPrimitives(void) {
     check("IA set 4", ia->get(4) == 4);
     check("FA set RV", ia->set(5.5, 1) == 1);
     fa->set(6, 1000);
-    check("FA set 0", fa->get(0) == 0.0);
-    check("FA set 1", fa->get(1) == 5.5);
-    check("FA set 2", fa->get(2) == 2.2);
-    check("FA set 3", fa->get(3) == 3.3);
-    check("FA set 4", fa->get(4) == 4.4);
+    check("FA set 0", fa->get(0) == 0.0f);
+    check("FA set 1", fa->get(1) == 5.5f);
+    check("FA set 2", fa->get(2) == 2.2f);
+    check("FA set 3", fa->get(3) == 3.3f);
+    check("FA set 4", fa->get(4) == 4.4f);
     
     check("BA size after set", ba->size() == 5);
     check("IA size after set", ia->size() == 5);
@@ -291,17 +291,17 @@ void testPrimitives(void) {
     check("BA !contains", !ba->contains(true));
     check("BA !indexof", ba->index_of(true) > 4);
     check("IA contains", ia->contains(5));
-    check("IA indexof", ia->index_of(5) == 3);
-    check("IA remove RV", ia->remove(3) == 5);
+    check("IA indexof", ia->index_of(5) == 1);
+    check("IA remove RV", ia->remove(1) == 5);
     ba->remove(500);//out of range
     check("IA !contains", !ia->contains(5));
     check("IA !indexof", ia->index_of(5) > 4);
-    check("FA contains", fa->contains(5.5));
-    check("FA indexof", fa->index_of(5.5) == 3);
-    check("FA remove RV", fa->remove(3) == 5.5);
+    check("FA contains", fa->contains(5.5f));
+    check("FA indexof", fa->index_of(5.5f) == 1);
+    check("FA remove RV", fa->remove(1) == 5.5f);
     ba->remove(500);//out of range
-    check("FA !contains", !fa->contains(5.5));
-    check("FA !indexof", fa->index_of(5.5) > 4);
+    check("FA !contains", !fa->contains(5.5f));
+    check("FA !indexof", fa->index_of(5.5f) > 4);
     
     check("BA size after remove", ba->size() == 4);
     check("IA size after remove", ia->size() == 4);
